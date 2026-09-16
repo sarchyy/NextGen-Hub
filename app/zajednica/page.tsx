@@ -99,7 +99,7 @@ export default function ZajednicaPage() {
     setErrorMsg("");
 
     try {
-      const response = await fetch("/api/zajednica", {
+      const response = await fetch("/api/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
