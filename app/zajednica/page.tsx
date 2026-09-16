@@ -70,7 +70,7 @@ export default function ZajednicaPage() {
   const [formaIme, setFormaIme] = useState("");
   const [formaEmail, setFormaEmail] = useState("");
   const [formaMreza, setFormaMreza] = useState("LinkedIn");
-  const [formaNivoZnanja, setFormaNivoZnanja] = useState("");
+  const [formanivo, setFormanivo] = useState("");
   const [formaPoruka, setFormaPoruka] = useState("");
 
   const [poslano, setPoslano] = useState(false);
@@ -108,7 +108,7 @@ export default function ZajednicaPage() {
           ime: formaIme,
           email: formaEmail,
           mreza: formaMreza,
-          nivoZnanja: formaNivoZnanja,
+          nivo: formanivo,
           poruka: formaPoruka,
           dogadjaj: odabraniDogadjaj ? odabraniDogadjaj.naslov : "Opšti upit za zajednicu",
         }),
@@ -139,7 +139,7 @@ export default function ZajednicaPage() {
       setFormaIme("");
       setFormaEmail("");
       setFormaMreza("LinkedIn");
-      setFormaNivoZnanja("");
+      setFormanivo("");
       setFormaPoruka("");
       setErrorMsg("");
     }, 300);
@@ -511,15 +511,15 @@ export default function ZajednicaPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="formaNivoZnanja" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    <label htmlFor="formanivo" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
                       Nivo znanja
                     </label>
                     <input
-                      id="formaNivoZnanja"
-                      name="formaNivoZnanja"
+                      id="formanivo"
+                      name="formanivo"
                       type="text"
-                      value={formaNivoZnanja}
-                      onChange={(e) => setFormaNivoZnanja(e.target.value)}
+                      value={formanivo}
+                      onChange={(e) => setFormanivo(e.target.value)}
                       placeholder="Početnik, Student..."
                       className="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-[#0070b1] focus:bg-white focus:ring-2 focus:ring-[#0070b1]/20"
                     />

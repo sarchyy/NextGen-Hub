@@ -19,8 +19,8 @@ export async function POST(req: Request) {
     const supabase = createClient(supabaseUrl, supabaseKey);
     const body = await req.json();
 
-    // Prihvatanje svih polja (uključujući dogadjaj sa frontend forme)
-    const { ime, email, telefon, napomena, kurs, mreza, nivoZnanja, poruka, dogadjaj } = body;
+    // Prihvatanje svih polja (prihvata i 'nivo' i 'nivoZnanja' radi sigurnosti)
+    const { ime, email, telefon, napomena, kurs, mreza, nivo, nivoZnanja, poruka, dogadjaj } = body;
 
     // Osnovna validacija obaveznih polja
     if (!ime || !email) {
@@ -34,8 +34,9 @@ export async function POST(req: Request) {
     const isKurs = Boolean(kurs);
     const tableName = isKurs ? "prijave_kursevi" : "prijave_zajednica";
 
-    // Ujednačavanje napomene/poruke
+    // Ujednačavanje napomene/poruke i nivoa
     const unosNapomena = napomena || poruka || "";
+    const unosNivo = nivo || nivoZnanja || "";
 
     // Priprema podataka za bazu u zavisnosti od tabele
     const insertPayload = isKurs
@@ -50,7 +51,7 @@ export async function POST(req: Request) {
           ime,
           email,
           mreza: mreza || "",
-          nivo_znanja: nivoZnanja || "",
+          nivo: unosNivo, // Naziv kolone u Supabase bazi je "nivo"
           poruka: unosNapomena,
           dogadjaj: dogadjaj || "Opšti upit za zajednicu",
         };
@@ -87,7 +88,7 @@ export async function POST(req: Request) {
             <p><strong>Ime i prezime:</strong> ${ime}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Mreža / Profil:</strong> ${mreza || "Nije navedeno"}</p>
-            <p><strong>Nivo znanja:</strong> ${nivoZnanja || "Nije navedeno"}</p>
+            <p><strong>Nivo znanja:</strong> ${unosNivo || "Nije navedeno"}</p>
             <p><strong>Poruka:</strong> ${unosNapomena || "Nema poruke"}</p>
           `;
 
